@@ -1,0 +1,30 @@
+﻿@model WebApplication2.Models.Announcement
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Announcement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AnnouncementBody)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnnouncementBody)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserForeignKey)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserForeignKey)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AnnouncementId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

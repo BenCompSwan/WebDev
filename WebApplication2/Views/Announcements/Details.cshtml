@@ -11,16 +11,22 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.AnnouncementTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnnouncementTitle)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.AnnouncementBody)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.AnnouncementBody)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUserForeignKey)
+            @Html.DisplayNameFor(model => model.ApplicationUser)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ApplicationUserForeignKey)
+            @Html.DisplayFor(model => model.ApplicationUser.Id)
         </dd>
     </dl>
 </div>

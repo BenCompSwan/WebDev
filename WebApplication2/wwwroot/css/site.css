@@ -33,3 +33,21 @@
         display: none;
     }
 }
+
+/* For Packery */
+.grid-item {
+    background-color: rgba(0, 0, 255, 0.3);
+    width: 25%;
+}
+
+.grid-item--width2 {
+    width: 50%;
+}
+
+/* Highlights packeried grids when dragging */
+.grid-item.is-dragging,
+/* Packery adds class while transitioning to drop position */
+.grid-item.is-positioning-post-drag {
+    background: #C90;
+    z-index: 2; /* keep dragged item on top */
+}

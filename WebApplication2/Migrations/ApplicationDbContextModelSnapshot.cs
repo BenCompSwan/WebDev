@@ -8,17 +8,16 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using WebApplication2.Data;
 
-namespace WebApplication2.Data.Migrations
+namespace WebApplication2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171219174302_mig3")]
-    partial class mig3
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -135,6 +134,8 @@ namespace WebApplication2.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AnnouncementBody");
+
+                    b.Property<string>("AnnouncementTitle");
 
                     b.Property<string>("ApplicationUserForeignKey");
 

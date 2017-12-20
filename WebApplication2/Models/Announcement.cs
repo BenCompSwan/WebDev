@@ -8,6 +8,7 @@ namespace WebApplication2.Models
     public class Announcement
     {
         public int AnnouncementId { get; set; }
+        public string AnnouncementTitle { get; set; }
         public string AnnouncementBody { get; set; }
         //public int NumberOfViews { get; set; }
 

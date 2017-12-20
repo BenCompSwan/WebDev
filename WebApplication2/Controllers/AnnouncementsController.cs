@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
 using WebApplication2.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication2.Controllers
 {
-    //[Authorize(Policy = "MemberOnly")]
     public class AnnouncementsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +22,8 @@ namespace WebApplication2.Controllers
         // GET: Announcements
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Announcement.ToListAsync());
+            var applicationDbContext = _context.Announcement.Include(a => a.ApplicationUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Announcements/Details/5
@@ -36,6 +35,7 @@ namespace WebApplication2.Controllers
             }
 
             var announcement = await _context.Announcement
+                .Include(a => a.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.AnnouncementId == id);
             if (announcement == null)
             {
@@ -48,6 +48,7 @@ namespace WebApplication2.Controllers
         // GET: Announcements/Create
         public IActionResult Create()
         {
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -56,7 +57,7 @@ namespace WebApplication2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AnnouncementId,AnnouncementBody,ApplicationUserForeignKey")] Announcement announcement)
+        public async Task<IActionResult> Create([Bind("AnnouncementId,AnnouncementTitle,AnnouncementBody,ApplicationUserForeignKey")] Announcement announcement)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +65,7 @@ namespace WebApplication2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id", announcement.ApplicationUserForeignKey);
             return View(announcement);
         }
 
@@ -80,6 +82,7 @@ namespace WebApplication2.Controllers
             {
                 return NotFound();
             }
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id", announcement.ApplicationUserForeignKey);
             return View(announcement);
         }
 
@@ -88,7 +91,7 @@ namespace WebApplication2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AnnouncementId,AnnouncementBody,ApplicationUserForeignKey")] Announcement announcement)
+        public async Task<IActionResult> Edit(int id, [Bind("AnnouncementId,AnnouncementTitle,AnnouncementBody,ApplicationUserForeignKey")] Announcement announcement)
         {
             if (id != announcement.AnnouncementId)
             {
@@ -115,6 +118,7 @@ namespace WebApplication2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id", announcement.ApplicationUserForeignKey);
             return View(announcement);
         }
 
@@ -127,6 +131,7 @@ namespace WebApplication2.Controllers
             }
 
             var announcement = await _context.Announcement
+                .Include(a => a.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.AnnouncementId == id);
             if (announcement == null)
             {

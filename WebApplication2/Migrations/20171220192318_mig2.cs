@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace WebApplication2.Data.Migrations
+namespace WebApplication2.Migrations
 {
-    public partial class mig5 : Migration
+    public partial class mig2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

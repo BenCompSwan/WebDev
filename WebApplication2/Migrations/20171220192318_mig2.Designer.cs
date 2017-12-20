@@ -8,17 +8,17 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using WebApplication2.Data;
 
-namespace WebApplication2.Data.Migrations
+namespace WebApplication2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171220143730_mig5")]
-    partial class mig5
+    [Migration("20171220192318_mig2")]
+    partial class mig2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -136,9 +136,9 @@ namespace WebApplication2.Data.Migrations
 
                     b.Property<string>("AnnouncementBody");
 
-                    b.Property<string>("ApplicationUserForeignKey");
+                    b.Property<string>("AnnouncementTitle");
 
-                    b.Property<int>("NumberOfViews");
+                    b.Property<string>("ApplicationUserForeignKey");
 
                     b.HasKey("AnnouncementId");
 

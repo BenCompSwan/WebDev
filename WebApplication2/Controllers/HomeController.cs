@@ -6,15 +6,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication2.Models;
 using Microsoft.AspNetCore.Authorization;
+using WebApplication2.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication2.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
+        }
+
+        // GET: Announcements
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Announcement.Include(a => a.ApplicationUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         public IActionResult About()

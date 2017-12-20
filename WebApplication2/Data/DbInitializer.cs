@@ -30,15 +30,23 @@ namespace WebApplication2.Data
 
             for (int i = 0; i < emails.Length; i++)
             {
-                var user = await CreateUser(uM, emails[i]);
-                await SetPasswordForUser(uM, emails[i], user);
+                if (i == 0)
+                {
+                    var user = await CreateUser(uM, emails[i], 1);
+                    await SetPasswordForUser(uM, emails[i], user);
+                }
+                else
+                {
+                    var user = await CreateUser(uM, emails[i], 0);
+                    await SetPasswordForUser(uM, emails[i], user);
+                }
             }
         }
 
         //method for individual user creation
-        private static async Task<ApplicationUser> CreateUser(UserManager<ApplicationUser> uM, string email)
+        private static async Task<ApplicationUser> CreateUser(UserManager<ApplicationUser> uM, string email, int member)
         {
-            var user = new ApplicationUser { UserName = email, Email = email };
+            var user = new ApplicationUser { UserName = email, Email = email, Member = member};
             var createCheck = await uM.CreateAsync(user);
             if (!createCheck.Succeeded)
             {

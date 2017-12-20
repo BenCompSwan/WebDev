@@ -208,9 +208,6 @@ namespace WebApplication2.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            //Console.WriteLine("*************************************************************Calling Seed");
-            //Seed();
-            //Console.WriteLine("*************************************************************Ending Seed");
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -221,8 +218,6 @@ namespace WebApplication2.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
 
         {
-            
-            //Console.WriteLine("*************************************************************Registering");
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApplication2.Data;
 using WebApplication2.Models;
 using WebApplication2.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication2
 {
@@ -36,7 +37,7 @@ namespace WebApplication2
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("MemberOnly", policy => policy.RequireClaim("MemberId"));
+                options.AddPolicy("MemberOnly", policy => policy.RequireClaim("Member", "1"));
             });
 
             // Add application services.
@@ -61,6 +62,11 @@ namespace WebApplication2
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            //set to only use SSL connection
+            services.Configure<MvcOptions>(options => {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

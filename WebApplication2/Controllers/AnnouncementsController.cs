@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Data;
 using WebApplication2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication2.Controllers
 {
+    //[Authorize(Policy = "MemberOnly")]
     public class AnnouncementsController : Controller
     {
         private readonly ApplicationDbContext _context;

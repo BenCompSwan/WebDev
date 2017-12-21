@@ -11,8 +11,8 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171220192318_mig2")]
-    partial class mig2
+    [Migration("20171221213139_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -165,8 +165,6 @@ namespace WebApplication2.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<int>("Member");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);

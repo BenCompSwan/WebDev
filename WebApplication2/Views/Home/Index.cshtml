@@ -2,25 +2,72 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
 }
 
 <div class="grid">
 
     @foreach (Announcement a in Model)
     {
-        <div class="grid-item">
+        <div class="container grid-item">
             <h3>@Html.DisplayFor(post => a.AnnouncementTitle)</h3>
+
+            @if (claimsIdentity.HasClaim("member", "yes"))
+            {
+                <h6>
+                    Seen By:&nbsp;
+                    @Html.DisplayFor(views => a.viewCount)
+                </h6>
+            }
+
+            <hr />
             <p class="announcement">@Html.DisplayFor(post => a.AnnouncementBody)</p>
 
-            @if (a.Comments != null)
-            {
-                @foreach (Comment c in a.Comments)
+            <div class="row">
+                @if (a.Comments != null)
                 {
-                    <p class="comments">@Html.DisplayFor(comment => c.CommentBody)</p>
+                    @foreach (Comment c in a.Comments)
+                    {
+                        <div class="col-sm-5">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>@Html.DisplayFor(email => c.ApplicationUser.Email)</strong>
+                                </div>
+                                <div class="panel-body">
+                                    @Html.DisplayFor(comment => c.CommentBody)
+                                </div>
+                            </div>
+                        </div>
+                    }
                 }
-            }
-           
+                @if (claimsIdentity.HasClaim("customer", "yes") || claimsIdentity.HasClaim("member", "yes"))
+                {
+                    <div class="item">
+                        <a href="/Comments/Create" class="btn btn-default col-sm-12">New Comment</a>
+                    </div>
+                }
+            </div>
         </div>
     }
 
 </div>
+
+@if (claimsIdentity.HasClaim("member", "yes"))
+{
+    <div class="item">
+        <a href="/Announcements/Create" class="btn btn-default">New Post</a>
+    </div>
+
+    @section Scripts
+        {
+        <script>
+            // make all grid-items draggable
+            $grid.find('.grid-item').each(function (i, gridItem) {
+                var draggie = new Draggabilly(gridItem);
+                // bind drag events to Packery
+                $grid.packery('bindDraggabillyEvents', draggie);
+            });
+        </script>
+    }
+
+}

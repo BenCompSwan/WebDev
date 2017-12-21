@@ -10,10 +10,14 @@ namespace WebApplication2.Models
         public int AnnouncementId { get; set; }
         public string AnnouncementTitle { get; set; }
         public string AnnouncementBody { get; set; }
-        //public int NumberOfViews { get; set; }
-
         public string ApplicationUserForeignKey { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public List<Comment> Comments { get; set; }
+        public int viewCount { get; set; }
+
+        public Announcement()
+        {
+            viewCount = 0;
+        }
     }
 }

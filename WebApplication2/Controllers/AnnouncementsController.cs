@@ -65,7 +65,7 @@ namespace WebApplication2.Controllers
             {
                 _context.Add(announcement);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id", announcement.ApplicationUserForeignKey);
             return View(announcement);

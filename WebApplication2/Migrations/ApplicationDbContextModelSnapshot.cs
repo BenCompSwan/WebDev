@@ -139,6 +139,8 @@ namespace WebApplication2.Migrations
 
                     b.Property<string>("ApplicationUserForeignKey");
 
+                    b.Property<int>("viewCount");
+
                     b.HasKey("AnnouncementId");
 
                     b.HasIndex("ApplicationUserForeignKey");

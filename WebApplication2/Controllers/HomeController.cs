@@ -25,26 +25,21 @@ namespace WebApplication2.Controllers
         // GET: Announcements
         public async Task<IActionResult> Index()
         {
-            //var applicationDbContext = _context.Announcement.Include(a => a.ApplicationUser);
-            //_context.Announcement.Include(a => a.Comments);
-            //return View(await applicationDbContext.ToListAsync());
+            //Get all announcements
+            var announcement = _context.Announcement.Include(a => a.ApplicationUser);
 
+            //Get the comments for each announcement
+            await _context.Comment.Include(a => a.ApplicationUser).ToListAsync();
 
-            var announcements = _context.Announcement.Include(a => a.ApplicationUser).ToList();
-            var comments = _context.Comment.Include(c => c.ApplicationUser).ToList();
-
-            foreach (Announcement a in announcements)
+            //Increment view counter for each announcement
+            foreach(Announcement a in announcement)
             {
-                foreach (Comment c in comments)
-                {
-                    if (c.AnnouncementForeignKey == a.AnnouncementId)
-                    {
-                        a.Comments.Add(c);
-                    }
-                }
+                a.viewCount++;
             }
 
-            return View(announcements);
+            await _context.SaveChangesAsync();
+
+            return View(await announcement.ToListAsync());
         }
 
         public IActionResult About()

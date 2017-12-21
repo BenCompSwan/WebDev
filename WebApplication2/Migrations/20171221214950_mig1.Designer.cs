@@ -11,8 +11,8 @@ using WebApplication2.Data;
 namespace WebApplication2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171220192226_initialMig")]
-    partial class initialMig
+    [Migration("20171221214950_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -140,6 +140,8 @@ namespace WebApplication2.Migrations
 
                     b.Property<string>("ApplicationUserForeignKey");
 
+                    b.Property<int>("viewCount");
+
                     b.HasKey("AnnouncementId");
 
                     b.HasIndex("ApplicationUserForeignKey");
@@ -165,8 +167,6 @@ namespace WebApplication2.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<int>("Member");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);

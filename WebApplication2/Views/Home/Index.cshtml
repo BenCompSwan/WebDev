@@ -10,7 +10,16 @@
     {
         <div class="grid-item">
             <h3>@Html.DisplayFor(post => a.AnnouncementTitle)</h3>
-            <p>@Html.DisplayFor(post => a.AnnouncementBody)</p>
+            <p class="announcement">@Html.DisplayFor(post => a.AnnouncementBody)</p>
+
+            @if (a.Comments != null)
+            {
+                @foreach (Comment c in a.Comments)
+                {
+                    <p class="comments">@Html.DisplayFor(comment => c.CommentBody)</p>
+                }
+            }
+           
         </div>
     }
 

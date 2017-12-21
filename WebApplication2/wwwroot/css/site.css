@@ -36,12 +36,21 @@
 
 /* For Packery */
 .grid-item {
-    background-color: rgba(0, 0, 255, 0.3);
+    background-color: rgba(0, 0, 255, 0.5);
     width: 25%;
 }
 
 .grid-item--width2 {
     width: 50%;
+}
+
+/*To distinguish comments and announcements*/
+.announcement {
+    background-color: rgba(255,255,255,1);
+}
+
+.comments {
+    background-color: rgba(0,0,255,0.3);
 }
 
 /* Highlights packeried grids when dragging */

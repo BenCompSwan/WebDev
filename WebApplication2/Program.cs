@@ -26,10 +26,9 @@ namespace WebApplication2
                 {
                     var dbContext = services.GetRequiredService<ApplicationDbContext>();
                     var uM = services.GetRequiredService <UserManager<ApplicationUser>>();
-                    //var rM = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    var rM = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                   // var dbInitLogger = services.GetRequiredService <ILogger<DbInitializer>>();
-                    DbInitializer.Initialize(dbContext, uM/*, rM, dbInitLogger*/).Wait();
+                    DbInitializer.Initialize(dbContext, uM).Wait();
                 }
                 catch(Exception e)
                 {

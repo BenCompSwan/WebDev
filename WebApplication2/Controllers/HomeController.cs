@@ -25,8 +25,26 @@ namespace WebApplication2.Controllers
         // GET: Announcements
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Announcement.Include(a => a.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            //var applicationDbContext = _context.Announcement.Include(a => a.ApplicationUser);
+            //_context.Announcement.Include(a => a.Comments);
+            //return View(await applicationDbContext.ToListAsync());
+
+
+            var announcements = _context.Announcement.Include(a => a.ApplicationUser).ToList();
+            var comments = _context.Comment.Include(c => c.ApplicationUser).ToList();
+
+            foreach (Announcement a in announcements)
+            {
+                foreach (Comment c in comments)
+                {
+                    if (c.AnnouncementForeignKey == a.AnnouncementId)
+                    {
+                        a.Comments.Add(c);
+                    }
+                }
+            }
+
+            return View(announcements);
         }
 
         public IActionResult About()

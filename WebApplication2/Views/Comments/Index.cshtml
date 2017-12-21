@@ -15,12 +15,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CommentBody)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ApplicationUserForeignKey)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AnnouncementForeignKey)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Announcement)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -31,10 +31,10 @@
                 @Html.DisplayFor(modelItem => item.CommentBody)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUserForeignKey)
+                @Html.DisplayFor(modelItem => item.Announcement.AnnouncementId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AnnouncementForeignKey)
+                @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CommentId">Edit</a> |

@@ -34,10 +34,12 @@ namespace WebApplication2
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            //prevent cookie theft, this setting includes the deprecated version of the middleware that included HTTPOnly cookies
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("MemberOnly", policy => policy.RequireClaim("Member", "1"));
+                options.AddPolicy("member", policy => policy.RequireClaim("member"));
             });
 
             // Add application services.
@@ -64,7 +66,8 @@ namespace WebApplication2
             services.AddMvc();
 
             //set to only use SSL connection
-            services.Configure<MvcOptions>(options => {
+            services.Configure<MvcOptions>(options =>
+            {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
         }

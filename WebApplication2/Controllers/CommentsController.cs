@@ -22,7 +22,8 @@ namespace WebApplication2.Controllers
         // GET: Comments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Comment.ToListAsync());
+            var applicationDbContext = _context.Comment.Include(c => c.Announcement).Include(c => c.ApplicationUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Comments/Details/5
@@ -34,6 +35,8 @@ namespace WebApplication2.Controllers
             }
 
             var comment = await _context.Comment
+                .Include(c => c.Announcement)
+                .Include(c => c.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
             {
@@ -46,6 +49,8 @@ namespace WebApplication2.Controllers
         // GET: Comments/Create
         public IActionResult Create()
         {
+            ViewData["AnnouncementForeignKey"] = new SelectList(_context.Announcement, "AnnouncementId", "AnnouncementId");
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -62,6 +67,8 @@ namespace WebApplication2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AnnouncementForeignKey"] = new SelectList(_context.Announcement, "AnnouncementId", "AnnouncementId", comment.AnnouncementForeignKey);
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id", comment.ApplicationUserForeignKey);
             return View(comment);
         }
 
@@ -78,6 +85,8 @@ namespace WebApplication2.Controllers
             {
                 return NotFound();
             }
+            ViewData["AnnouncementForeignKey"] = new SelectList(_context.Announcement, "AnnouncementId", "AnnouncementId", comment.AnnouncementForeignKey);
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id", comment.ApplicationUserForeignKey);
             return View(comment);
         }
 
@@ -113,6 +122,8 @@ namespace WebApplication2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AnnouncementForeignKey"] = new SelectList(_context.Announcement, "AnnouncementId", "AnnouncementId", comment.AnnouncementForeignKey);
+            ViewData["ApplicationUserForeignKey"] = new SelectList(_context.Users, "Id", "Id", comment.ApplicationUserForeignKey);
             return View(comment);
         }
 
@@ -125,6 +136,8 @@ namespace WebApplication2.Controllers
             }
 
             var comment = await _context.Comment
+                .Include(c => c.Announcement)
+                .Include(c => c.ApplicationUser)
                 .SingleOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
             {

@@ -20,12 +20,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="ApplicationUserForeignKey" class="control-label"></label>
-                <input asp-for="ApplicationUserForeignKey" class="form-control" />
+                <select asp-for="ApplicationUserForeignKey" class="form-control" asp-items="ViewBag.ApplicationUserForeignKey"></select>
                 <span asp-validation-for="ApplicationUserForeignKey" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AnnouncementForeignKey" class="control-label"></label>
-                <input asp-for="AnnouncementForeignKey" class="form-control" />
+                <select asp-for="AnnouncementForeignKey" class="form-control" asp-items="ViewBag.AnnouncementForeignKey"></select>
                 <span asp-validation-for="AnnouncementForeignKey" class="text-danger"></span>
             </div>
             <div class="form-group">

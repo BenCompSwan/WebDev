@@ -14,7 +14,6 @@ namespace WebApplication2.Models
 
         }
 
-        public int Member { get; set; }
         public List<Announcement> Announcements { get; set; }
         public List<Comment> Comments { get; set; }
     }
